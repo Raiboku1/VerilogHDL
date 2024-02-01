@@ -1,0 +1,10 @@
+module exercise1_2;
+reg X, Y, Z;
+wire [3:0] W;
+
+exercise1_1 dut (
+. W(W),
+.X(X),
+. Y(Y),
+. Z(Z)
+);

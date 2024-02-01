@@ -1,0 +1,55 @@
+module exercise7_3_tb;
+
+reg clk;
+reg rst;
+reg [3:0] dice1;
+reg [3:0] dice2;
+reg [3:0] switches;
+wire [3:0] leds;
+
+// Instantiate the dice game module
+exercise7_3 uut (
+.clk(clk),
+.rst(rst),
+.dice1(dice1),
+.dice2(dice2),
+.switches(switches),
+.leds(leds)
+);
+
+// Clock generation
+always begin
+#5 clk = ~clk;
+end
+
+// Stimulus generation
+initial begin
+clk = 0;
+
+rst = 0;
+dice1 = 4'b0001;
+dice2 = 4'b0010;
+switches = 4'b1101;
+
+// Roll the dice 16 times
+repeat (16) begin
+// Simulate dice rolls
+dice1 = $random;
+dice2 = $random;
+
+// Simulate button press (you can replace this with your actual input method)
+switches = $random;
+
+// Display results
+$display("Dice 1: %b, Dice 2: %b, Switches: %b, LEDs: %b", dice1, dice2,
+switches, leds);
+
+// Clock cycle
+#10;
+end
+
+// Finish simulation
+$finish;
+end
+
+endmodule

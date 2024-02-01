@@ -1,0 +1,33 @@
+module exercise6_2 (
+input wire clk,
+input wire reset,
+output reg [2:0] count
+);
+
+// Define T flip-flops
+wire t1 = (count == 3'b010);
+wire t2 = (count == 3'b011);
+wire t3 = (count == 3'b100);
+wire t4 = (count == 3'b101);
+wire t5 = (count == 3'b110);
+wire t6 = (count == 3'b111);
+
+// Temporary signals for next state calculation
+wire [2:0] next_count;
+
+// Define the next state logic
+assign next_count[2] = t1 | t3 | t4;
+assign next_count[1] = t2 | t4 | t5;
+assign next_count[0] = t1 | t3 | t6;
+
+// Clocked process
+always @(posedge clk or posedge reset) begin
+if (reset) begin
+count <= 3'b101; // Initial state: 5
+end
+else begin
+count <= next_count;
+end
+end
+
+endmodule

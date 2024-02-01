@@ -1,0 +1,27 @@
+module exercise7_3 (
+input wire clk,
+input wire rst,
+input wire [3:0] dice1,
+input wire [3:0] dice2,
+input wire [3:0] switches,
+output wire [3:0] leds
+);
+
+reg [3:0] ax;
+
+// Logic for processing dice rolls
+always @(*) begin
+if (dice1 == 4'b010 || dice2 == 4'b010 || dice1 == 4'b100 || dice2 == 4'b100 || dice1
+== 4'b110 || dice2 == 4'b110) begin
+ax = ~switches;
+end else if (dice1 == dice2) begin
+ax = 4'b0000;
+end else begin
+ax = ax;
+end
+end
+
+// LED assignment
+assign leds = ax;
+
+endmodule

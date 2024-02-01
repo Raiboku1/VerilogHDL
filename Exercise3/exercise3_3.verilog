@@ -1,0 +1,58 @@
+module exercise3_3(
+input [1:0] A, B,
+output [3:0] Result
+);
+
+wire C1, C2, C3; // Carry wires
+wire S1, S2, S3, S4; // Sum wires
+
+// First row
+half_adder HA1(.A(A[0]), .B(B[0]), .Sum(S1), .Carry(C1));
+full_addder FA1(.A(A[1]), .B(0), .Carry_in(C1), .Sum(S2), .Carry(C2));
+
+// Second row
+half_adder HA2(.A(A[0]), .B(B[1]), .Sum(S3), .Carry(C3));
+full_addder FA2(.A(A[1]), .B(0), .Carry_in(C3), .Sum(S4), .Carry(C2));
+
+// Combine the sum outputs to get the result
+assign Result = {C2, S4, S2, S1};
+
+endmodule
+Test Bench Code:
+module exercise3_3_tb;
+// Inputs
+reg [1:0] A, B;
+integer i, j;
+
+// Output
+wire [3:0] Result;
+
+// Instantiate the 2x2 binary multiplier
+exercise3_3 dut(.A(A), .B(B), .Result(Result));
+
+// Generate clock for testbench (not used in this testbench, but you can add it if
+needed)
+
+reg clk = 0;
+always #5 clk = ~clk;
+
+// Test vectors for A and B
+initial begin
+$display("A B | Result");
+$display("----------------");
+
+// Test all possible input combinations (2x2x2 = 8)
+
+for (i = 0; i < 4; i = i + 1) begin
+for (j = 0; j < 4; j = j + 1) begin
+#5; // Wait for combinational logic to settle
+A = i;
+B = j;
+$display("%b %b | %b", A, B, Result);
+end
+end
+
+$finish;
+end
+
+endmodule

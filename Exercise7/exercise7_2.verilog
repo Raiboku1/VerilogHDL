@@ -1,0 +1,11 @@
+module exercise7_2 (
+input wire [3:0] multiplier, // 4-bit multiplier
+input wire [3:0] multiplicand, // 4-bit multiplicand
+output wire [7:0] product // 8-bit product
+);
+
+// Base case: If multiplier is 0, product is 0
+assign product = (multiplier == 4'b0000) ? 8'b00000000 : {1'b0, multiplicand} + {1'b0,
+multiplier - 1'b1, multiplicand};
+
+endmodule

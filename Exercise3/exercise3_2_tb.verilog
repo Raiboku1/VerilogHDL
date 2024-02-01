@@ -1,0 +1,44 @@
+module exercise3_2_tb;
+reg [3:0] bcd_digit;
+wire [3:0] nines_complement;
+
+bcd_nines_complement dut(.bcd_digit(bcd_digit),
+.nines_complement(nines_complement));
+
+initial begin
+$display("BCD Digit | 9's Complement");
+$display("-------------------------");
+for (bcd_digit = 0; bcd_digit <= 9; bcd_digit = bcd_digit + 1) begin
+
+#1; // Wait for one time unit for combinational logic to settle
+$display("%b | %b", bcd_digit, nines_complement);
+end
+$finish;
+end
+endmodule
+
+Test Bench Code:
+module exercise3_2(
+input [3:0] bcd_digit,
+output reg [3:0] nines_complement
+);
+wire [3:0] inverted_digit;
+assign inverted_digit = ~bcd_digit;
+
+always @* begin
+case (inverted_digit)
+4'b0000: nines_complement = 4'b1001;
+4'b0001: nines_complement = 4'b1000;
+4'b0010: nines_complement = 4'b0111;
+4'b0011: nines_complement = 4'b0110;
+4'b0100: nines_complement = 4'b0101;
+4'b0101: nines_complement = 4'b0100;
+4'b0110: nines_complement = 4'b0011;
+4'b0111: nines_complement = 4'b0010;
+4'b1000: nines_complement = 4'b0001;
+4'b1001: nines_complement = 4'b0000;
+default: nines_complement = 4'b0000; // Set a default value in case of invalid input
+
+endcase
+end
+endmodule

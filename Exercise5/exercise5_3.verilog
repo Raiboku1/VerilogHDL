@@ -1,0 +1,32 @@
+module exercise5_3(
+input wire clk, // Clock signal
+input wire reset, // Reset signal
+
+input wire load, // Load control input
+input wire shift, // Shift control input
+input wire [3:0] data_in, // Input data (4 bits)
+output wire [3:0] data_out // Output data (4 bits)
+);
+
+reg [3:0] register; // 4-bit shift register
+
+always @(posedge clk or posedge reset) begin
+if (reset) begin
+// Reset the register
+register <= 4'b0000;
+end else begin
+if (load) begin
+// Load new data when load is asserted
+register <= data_in;
+end else if (shift) begin
+// Shift the register to the left when shift is asserted
+register <= {register[2:0], 1'b0};
+end
+// If neither load nor shift is asserted, the register remains unchanged
+end
+end
+
+// Output data is the content of the shift register
+assign data_out = register;
+
+endmodule

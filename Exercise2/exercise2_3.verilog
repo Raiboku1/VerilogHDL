@@ -1,0 +1,13 @@
+`timescale 1ns/1ps
+`define PI 3.14159
+
+module cylinder_volume;
+reg [31:0] radius = 5; // Hardcoded radius
+reg [31:0] height = 10; // Hardcoded height
+reg [31:0] volume;
+
+initial begin
+volume = (`PI * radius * radius * height);
+$display("Volume: %0d.%0d", volume[31:16], volume[15:0]);
+end
+endmodule

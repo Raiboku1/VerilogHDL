@@ -1,0 +1,11 @@
+module exercise6_1 (
+input [7:0] A,
+input [7:0] B,
+output A_greater,
+output B_greater
+);
+
+assign A_greater = (A > B) ? 1'b1 : 1'b0;
+assign B_greater = (B > A) ? 1'b1 : 1'b0;
+
+endmodule

@@ -1,0 +1,53 @@
+module exercise7_1_tb;
+reg clk;
+reg reset;
+reg X;
+reg [3:0] n;
+reg [3:0] inX;
+wire [3:0] outX;
+
+// Instantiate the circuit
+exercise7_1 dut (
+.clk(clk),
+.reset(reset),
+.X(X),
+.n(n),
+.inX(inX),
+.outX(outX)
+);
+
+// Clock generation
+always #5 clk = ~clk;
+
+// Reset initialization
+initial begin
+clk = 0;
+reset = 1;
+X = 0;
+n = 4'b0000;
+inX = 4'b0101; // Initial input for testing
+#10 reset = 0;
+end
+
+// Test sequence
+initial begin
+$display("Time X n inX outX");
+$monitor("%d %b %b %b %b", $time, X, n, inX, outX);
+
+// Test with X=1 and increment inX by n
+X = 1;
+n = 4'b0010; // Example value of n
+inX = 4'b0101; // Example initial inX value
+#20;
+
+// Test with X=0 and rotate inX by n
+X = 0;
+n = 4'b0010; // Example value of n
+inX = 4'b0101; // Example initial inX value
+#20;
+
+// Finish the simulation
+
+$finish;
+end
+endmodule

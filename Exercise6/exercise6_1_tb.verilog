@@ -1,0 +1,63 @@
+module exercise6_1_tb;
+
+// Inputs
+reg [7:0] A;
+reg [7:0] B;
+
+// Outputs
+wire A_greater;
+wire B_greater;
+
+// Instantiate the module
+
+exercise6_1 uut (
+.A(A),
+.B(B),
+.A_greater(A_greater),
+.B_greater(B_greater)
+);
+
+// Stimulus
+initial begin
+// Test case 1: A has more set bits
+A = 8'b11011010;
+B = 8'b10100101;
+#10;
+if (A_greater !== 1 || B_greater !== 0) begin
+$display("Test case 1 failed");
+end
+else begin
+$display("Test case 1 passed");
+end
+
+// Test case 2: B has more set bits
+A = 8'b00110011;
+B = 8'b11001100;
+#10;
+if (A_greater !== 0 || B_greater !== 1) begin
+$display("Test case 2 failed");
+end
+else begin
+
+$display("Test case 2 passed");
+end
+
+// Test case 3: Equal set bits
+A = 8'b01010101;
+B = 8'b10101010;
+#10;
+if (A_greater !== 0 || B_greater !== 0) begin
+$display("Test case 3 failed");
+end
+else begin
+$display("Test case 3 passed");
+end
+
+// Add more test cases as needed
+
+// If we reach here, all tests passed
+$display("All tests passed. Success!");
+
+end
+
+endmodule

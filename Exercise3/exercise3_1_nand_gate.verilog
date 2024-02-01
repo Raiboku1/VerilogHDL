@@ -1,0 +1,4 @@
+module exercise3_1_nand_gate(
+input a, b,
+output y
+);

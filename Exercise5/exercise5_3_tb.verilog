@@ -1,0 +1,79 @@
+module exercise5_3_tb;
+
+reg clk; // Clock signal
+reg reset; // Reset signal
+reg load; // Load control input
+reg shift; // Shift control input
+reg [3:0] data_in; // Input data (4 bits)
+wire [3:0] data_out; // Output data (4 bits)
+
+// Instantiate the shift register
+exercise5_3 dut(
+.clk(clk),
+.reset(reset),
+.load(load),
+.shift(shift),
+.data_in(data_in),
+.data_out(data_out)
+);
+
+// Clock generation
+always begin
+#5 clk = ~clk; // Toggle the clock every 5 time units
+end
+
+// Test scenario
+initial begin
+
+// Initialize inputs
+clk = 0;
+reset = 0;
+load = 0;
+shift = 0;
+data_in = 4'b0000;
+
+// Apply reset
+reset = 1;
+#10 reset = 0;
+
+// Load new data into the register
+load = 1;
+data_in = 4'b1010;
+#10 load = 0;
+
+// Shift the register left
+shift = 1;
+#10 shift = 0;
+
+// Observe the output
+$display("Time=%d data_out=%b", $time, data_out);
+#10;
+
+// Apply reset again
+reset = 1;
+#10 reset = 0;
+
+// Load new data
+load = 1;
+data_in = 4'b1100;
+#10 load = 0;
+
+// Observe the output
+$display("Time=%d data_out=%b", $time, data_out);
+#10;
+
+// Shift the register left twice
+shift = 1;
+#10 shift = 0;
+#10 shift = 1;
+#10 shift = 0;
+
+// Observe the output
+$display("Time=%d data_out=%b", $time, data_out);
+#10;
+
+// Finish simulation
+$finish;
+end
+
+endmodule

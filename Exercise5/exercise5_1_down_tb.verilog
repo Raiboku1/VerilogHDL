@@ -1,0 +1,39 @@
+module exercise5_1_down_tb;
+
+reg clk;
+reg reset;
+reg up;
+reg down;
+wire [3:0] count;
+integer i;
+// Instantiate the counter
+exercise5_1 dut(.clk(clk), .reset(reset), .up(up), .down(down), .count(count));
+
+// Generate the clock signal
+always #5 clk = ~clk;
+
+// Initialize signals
+initial begin
+clk = 0;
+reset = 1;
+up = 0;
+down = 0;
+
+// Deassert reset after 10 time units
+#10 reset = 0;
+
+// Count up from 0 to 10 using a for loop
+for (i = 15; i > 0; i = i - 1) begin
+#10;
+
+down = 1; // Set the up signal to 1
+#10;
+down = 0; // Reset the up signal to 0
+$display("Count = %d", count); // Display the counter at each clock cycle
+end
+
+// Terminate the simulation
+$finish;
+end
+
+endmodule

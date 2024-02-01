@@ -1,0 +1,29 @@
+module exercise7_1 (
+input wire clk,
+input wire reset,
+input wire X,
+input wire [3:0] n,
+input wire [3:0] inX,
+output reg [3:0] outX
+);
+
+reg [3:0] tmpX;
+
+always @(posedge clk or posedge reset) begin
+if (reset) begin
+tmpX <= 4'b0000;
+end
+else if (X) begin
+tmpX <= tmpX + n;
+end
+else begin
+tmpX <= tmpX << n;
+end
+end
+
+always @(posedge clk) begin
+
+outX <= tmpX;
+end
+
+endmodule

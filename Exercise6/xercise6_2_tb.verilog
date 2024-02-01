@@ -1,0 +1,39 @@
+module exercise6_2_tb;
+reg clk;
+reg reset;
+wire [2:0] count;
+
+// Instantiate the counter
+exercise6_2 dut (
+.clk(clk),
+.reset(reset),
+.count(count)
+
+);
+
+// Clock generation
+always #5 clk = ~clk;
+
+// Reset initialization
+initial begin
+clk = 0;
+reset = 1;
+#10 reset = 0;
+end
+
+// Monitor the count and produce the desired output
+integer i;
+initial begin
+$display("Time=0 Count=%b", count);
+$monitor("Time=%0t Count=%b", $time, count);
+
+// Simulate the counter sequence
+for (i = 0; i < 7; i = i + 1) begin
+#10;
+reset = 0;
+end
+
+// Finish the simulation
+$finish;
+end
+endmodule

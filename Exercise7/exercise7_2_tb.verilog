@@ -1,0 +1,39 @@
+module exercise7_2_tb;
+
+// Inputs
+reg [3:0] multiplier;
+reg [3:0] multiplicand;
+integer i,j;
+
+// Outputs
+wire [7:0] product;
+
+// Instantiate the multiplication module
+exercise7_2 uut (
+.multiplier(multiplier),
+.multiplicand(multiplicand),
+.product(product)
+);
+
+// Stimulus generation
+initial begin
+$display("Multiplier Multiplicand Product");
+$display("--------------------------------");
+
+// Test with various values
+for (i = 0; i <= 15; i = i + 1) begin
+
+for (j = 0; j <= 15; j = j + 1) begin
+#5; // Wait for combinational logic to settle
+multiplier = i;
+multiplicand = j;
+
+$display("%8b %10b %10b", multiplier, multiplicand, product);
+end
+end
+
+// Finish simulation
+$finish;
+end
+
+endmodule

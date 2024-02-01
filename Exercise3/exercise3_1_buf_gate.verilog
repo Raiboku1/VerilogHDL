@@ -1,0 +1,4 @@
+module exercise3_1_buf_gate(
+input a,
+output y
+);

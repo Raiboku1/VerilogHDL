@@ -1,0 +1,32 @@
+module exercise4_2_tb;
+
+// Inputs
+reg [1:0] A, B;
+integer i,j;
+// Outputs
+wire [1:0] Diff;
+wire Borrow;
+
+// Instantiate the binary subtractor
+exercise4_2 dut(.A(A), .B(B), .Diff(Diff), .Borrow(Borrow));
+
+// Test vectors for A and B
+initial begin
+$display("A B | Diff Borrow");
+$display("-------------------");
+
+// Test all possible input combinations (4x4 = 16)
+for (i = 0; i < 4; i = i + 1) begin
+for(j = 0; j < 4; j = j + 1) begin
+#5; // Wait for combinational logic to settle
+A = i;
+B = j;
+
+$display("%b %b | %b %b", A, B, Diff, Borrow);
+end
+end
+
+$finish;
+end
+
+endmodule

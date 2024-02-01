@@ -1,0 +1,53 @@
+`timescale 100ns/1ns
+
+`include "exercise1_1.v" // Replace with the correct file path/name
+// or
+// `include "drill1_2.vl" // Replace with the correct file path/name
+
+module exercise2_2_tb;
+reg X, Y, Z;
+wire [3:0] W;
+
+exercise1_1 dut (
+. W(W),
+.X(X),
+. Y(Y),
+. Z(Z)
+);
+
+initial begin
+$dumpfile("exercise2_2_tb.v");
+$dumpvars(0, exercise2_2_tb);
+
+// Test Case 1
+X = 0;
+Y = 0;
+Z = 0;
+#10;
+$display("W = %b", W);
+
+// Test Case 2
+X = 1;
+Y = 0;
+Z = 0;
+#10;
+$display("W = %b", W);
+
+// Test Case 3
+X = 0;
+Y = 1;
+Z = 0;
+#10;
+$display("W = %b", W);
+
+// Test Case 4
+X = 1;
+Y = 1;
+Z = 1;
+#10;
+$display("W = %b", W);
+
+$finish;
+end
+
+endmodule

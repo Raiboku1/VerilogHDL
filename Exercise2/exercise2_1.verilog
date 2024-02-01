@@ -1,0 +1,12 @@
+module exercise2_1;
+reg [7:0] hex_value = 8'hA5;
+real real_num = 1.23E2;
+reg [31:0] string = "Hex Value: %h, Real Number: %f, String: \\%t\"Hello\"";
+
+initial begin
+$display("Hexadecimal Value: %02h", hex_value);
+$display("Real Number: %g", real_num);
+$display("String: %s", string);
+$display("Conditional Operators: %b", (hex_value > 8'h80) ? 1 : 0);
+end
+endmodule
